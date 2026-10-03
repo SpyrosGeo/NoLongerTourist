@@ -1,0 +1,57 @@
+{
+  "id": "bus_fare",
+  "backdrop": "plaza_center",
+  "title": "Unity Square — Night",
+  "intro": "A man steps out of the metro mouth and catches your eye.\n\n\"Hey — tourist? Please. I just need a few euros for the night bus. My card died. I can get home if I make the last one.\"",
+  "ask": "He waits, too close, palms half open.",
+  "variants": {
+    "threat": {
+      "clues": [
+        "He glances twice toward the dark alley behind the kiosk.",
+        "He says he forgot his wallet — then says it again, word for word."
+      ],
+      "choices": {
+        "give_money": {
+          "text": "Give him money",
+          "result": "You dig out a note. His smile hardens.\n\nA second shape peels from the alley. Something cold presses under your ribs.\n\nYou never hear the bus arrive."
+        },
+        "help": {
+          "text": "Walk him to the bus stop",
+          "result": "You offer to walk him over. He thanks you, steers you past the fountain — into shadow.\n\nThe knife is already out.\n\nUnity Square keeps its night schedule without you."
+        },
+        "call_police": {
+          "text": "Call the police",
+          "result": "You raise your phone. His face empties.\n\nHe bolts into the alley before the line connects. Sirens somewhere, later.\n\nYou are alone again. Alive. Hands shaking."
+        },
+        "walk_away": {
+          "text": "Walk away",
+          "result": "You shake your head and turn.\n\nHe curses in a language you almost recognize. Footsteps follow for half a block, then stop.\n\nYou do not look back until the hotel lights."
+        }
+      }
+    },
+    "human": {
+      "clues": [
+        "His hands tremble; the exhaustion looks real, not performed.",
+        "A crumpled day-ticket stub sticks from his jacket — today's date, stamped."
+      ],
+      "choices": {
+        "give_money": {
+          "text": "Give him money",
+          "result": "He takes the note with both hands, almost laughing with relief.\n\n\"Thank you. Really. Get home safe.\"\n\nHe jogs toward the stop. For a moment the square feels less sharp."
+        },
+        "help": {
+          "text": "Walk him to the bus stop",
+          "result": "You walk him to the illuminated stop. He talks about missing the last train from Piraeus.\n\nThe night bus sighs open. He waves once from the steps.\n\nYou head back across the square feeling foolish — and safer."
+        },
+        "call_police": {
+          "text": "Call the police",
+          "result": "Blue lights. Questions. His voice cracks while he repeats himself.\n\nThey take him aside. Nobody thanks you.\n\nLater you wonder whether fear chose for you."
+        },
+        "walk_away": {
+          "text": "Walk away",
+          "result": "You mutter an apology and keep moving.\n\nHe stays under the metro sign, smaller somehow.\n\nSleep comes late. The square stays in your ears."
+        }
+      }
+    }
+  }
+}
