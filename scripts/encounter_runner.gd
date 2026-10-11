@@ -2,6 +2,7 @@ class_name EncounterRunner
 extends Node
 
 signal finished(ending: String, view: String)
+signal outcome_view_changed(view: String)
 
 const ENERGY_MAX := 100
 const EXAMINE_COST := 50
@@ -199,10 +200,17 @@ func _begin_outcome(text: String, ending: String, view: String = "") -> void:
 	_last_view = view
 	_awaiting_choice_ready = false
 	_awaiting_outcome_ready = true
+	if not view.is_empty():
+		outcome_view_changed.emit(view)
 	ui.play_segments(text, EncounterUI.Phase.OUTCOME)
 
 
 func _resolve_outcome(entry: Dictionary) -> Dictionary:
+	if entry.has("outcomes"):
+		var picked := _pick_weighted_outcome(entry.get("outcomes", []))
+		if not picked.is_empty():
+			return picked
+
 	if entry.has("results"):
 		var results: Dictionary = entry.get("results", {})
 		var variant_result: Variant = null
@@ -236,6 +244,45 @@ func _resolve_outcome(entry: Dictionary) -> Dictionary:
 		}
 
 	return {"text": "...", "ending": "survive", "view": ""}
+
+
+func _pick_weighted_outcome(outcomes: Variant) -> Dictionary:
+	if typeof(outcomes) != TYPE_ARRAY:
+		return {}
+	var entries: Array = outcomes
+	if entries.is_empty():
+		return {}
+
+	var total_weight := 0.0
+	var weights: Array[float] = []
+	for item in entries:
+		var weight := 1.0
+		if typeof(item) == TYPE_DICTIONARY:
+			weight = maxf(float((item as Dictionary).get("weight", 1.0)), 0.0)
+		weights.append(weight)
+		total_weight += weight
+
+	if total_weight <= 0.0:
+		return _outcome_dict_from(entries[0])
+
+	var roll := randf() * total_weight
+	var cumulative := 0.0
+	for i in entries.size():
+		cumulative += weights[i]
+		if roll < cumulative:
+			return _outcome_dict_from(entries[i])
+	return _outcome_dict_from(entries[entries.size() - 1])
+
+
+func _outcome_dict_from(item: Variant) -> Dictionary:
+	if typeof(item) != TYPE_DICTIONARY:
+		return {"text": String(item), "ending": "survive", "view": ""}
+	var obj: Dictionary = item
+	return {
+		"text": String(obj.get("text", obj.get("result", "..."))),
+		"ending": String(obj.get("ending", "survive")),
+		"view": String(obj.get("view", "")),
+	}
 
 
 func _load_json(path: String) -> Dictionary:

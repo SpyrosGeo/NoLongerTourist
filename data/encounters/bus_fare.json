@@ -65,35 +65,30 @@
       "choices": {
         "give_money": {
           "text": "Give him money",
-          "results": {
-            "threat": {
-              "ending": "survive",
-              "text": "You dig out a note. He snatches it, pockets it, and — without breaking eye contact — lets rip a wet, theatrical fart aimed squarely at your shoes.\n\n\"Bus tip,\" he says, and walks off cackling.\n\nYou stand under the blue light smelling like a lost argument."
-            },
-            "human": {
-              "ending": "survive",
-              "text": "He takes the note with both hands, almost laughing with relief.\n\n\"Thank you. Really. Get home safe.\"\n\nHe jogs toward the stop. For a moment the square feels less sharp."
-            }
-          }
+          "ending": "survive",
+          "result": "You dig out a note. He snatches it, pockets it, and — without breaking eye contact — lets rip a wet, theatrical fart aimed squarely at your shoes.\n\n\"Bus tip,\" he says, and walks off cackling.\n\nYou stand under the blue light smelling like a lost argument."
         },
         "walk_to_bus": {
           "text": "Walk him to the bus",
-          "results": {
-            "threat": {
-              "ending": "dead",
-              "view": "junkie-bad-ending",
-              "text": "You offer to walk him over. He thanks you, steers you past the fountain — into shadow.\n\nThe knife is already out. Heat, then cold, under your ribs.\n\nSirens somewhere. Then the square goes quiet."
-            },
-            "human": {
-              "ending": "survive",
-              "text": "You walk him to the illuminated stop. He talks about missing the last train from Piraeus, about a cousin who leaves the key under a brick.\n\nThe night bus sighs open. He waves once from the steps.\n\nYou head back across the square feeling foolish — and safer."
-            }
-          }
+          "ending": "dead",
+          "view": "junkie-bad-ending",
+          "result": "You offer to walk him over. He thanks you, steers you past the fountain — into shadow.\n\nThe knife is already out. Heat, then cold, under your ribs.\n\nSirens somewhere. Then the square goes quiet."
         },
         "refuse": {
           "text": "Refuse",
-          "ending": "survive",
-          "result": "You keep your wallet shut.\n\n\"Okay,\" he says, smaller. \"Okay.\"\n\nHe stays under the sign as you leave. Sleep comes late. The square stays in your ears."
+          "outcomes": [
+            {
+              "weight": 20,
+              "ending": "dead",
+              "view": "junkie-bad-ending",
+              "text": "You keep your wallet shut and turn away.\n\n\"Okay,\" he says — then the knife is in your side before the word finishes.\n\nSirens somewhere. Then the square goes quiet."
+            },
+            {
+              "weight": 80,
+              "ending": "survive",
+              "text": "You keep your wallet shut.\n\n\"Okay,\" he says, smaller. \"Okay.\"\n\nHe stays under the sign as you leave. Sleep comes late. The square stays in your ears."
+            }
+          ]
         }
       }
     }

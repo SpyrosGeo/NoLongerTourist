@@ -20,8 +20,8 @@ func _ready() -> void:
 	runner.name = "EncounterRunner"
 	add_child(runner)
 	runner.setup(ui)
-	if not runner.finished.is_connected(_on_encounter_finished):
-		runner.finished.connect(_on_encounter_finished)
+	if not runner.outcome_view_changed.is_connected(_on_outcome_view_changed):
+		runner.outcome_view_changed.connect(_on_outcome_view_changed)
 	if not ui.next_night_pressed.is_connected(_on_next_night):
 		ui.next_night_pressed.connect(_on_next_night)
 	if not ui.restart_run_pressed.is_connected(_on_restart_run):
@@ -40,7 +40,7 @@ func _on_restart_run() -> void:
 	_start_night()
 
 
-func _on_encounter_finished(_ending: String, view: String) -> void:
+func _on_outcome_view_changed(view: String) -> void:
 	if view.is_empty():
 		return
 	art_rect.texture = SceneArt.texture_for(view)
