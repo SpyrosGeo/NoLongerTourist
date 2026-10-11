@@ -5,6 +5,17 @@ extends RefCounted
 
 static func texture_for(art_id: String, _gate_open: bool = false) -> Texture2D:
 	var path := "res://art/views/%s.png" % art_id
+	var tex := _try_load(path)
+	if tex != null:
+		return tex
+	return _fallback_night_plaza()
+
+
+static func character_texture(character_id: String) -> Texture2D:
+	return _try_load("res://art/ui/%s.png" % character_id)
+
+
+static func _try_load(path: String) -> Texture2D:
 	if ResourceLoader.exists(path):
 		var tex := load(path) as Texture2D
 		if tex != null:
@@ -13,7 +24,7 @@ static func texture_for(art_id: String, _gate_open: bool = false) -> Texture2D:
 		var img := Image.new()
 		if img.load(path) == OK:
 			return ImageTexture.create_from_image(img)
-	return _fallback_night_plaza()
+	return null
 
 
 static func _fallback_night_plaza() -> Texture2D:

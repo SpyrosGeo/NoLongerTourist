@@ -1,57 +1,100 @@
 {
   "id": "bus_fare",
-  "backdrop": "plaza_center",
+  "backdrop": "plaza_center_new",
+  "character": "junkie1",
   "title": "Unity Square — Night",
-  "intro": "A man steps out of the metro mouth and catches your eye.\n\n\"Hey — tourist? Please. I just need a few euros for the night bus. My card died. I can get home if I make the last one.\"",
-  "ask": "He waits, too close, palms half open.",
   "variants": {
     "threat": {
       "clues": [
-        "He glances twice toward the dark alley behind the kiosk.",
-        "He says he forgot his wallet — then says it again, word for word."
-      ],
+        "He glances twice toward the dark alley behind the kiosk — not the bus stop.",
+        "He says he forgot his wallet — then says it again, word for word, like a line."
+      ]
+    },
+    "human": {
+      "clues": [
+        "His hands tremble; the exhaustion looks lived-in, not performed.",
+        "A crumpled day-ticket stub sticks from his jacket — today's date, stamped, route from Piraeus."
+      ]
+    }
+  },
+  "stages": [
+    {
+      "id": "meet",
+      "intro": "A man steps out of the metro mouth and catches your eye — round sunglasses, beaded necklace, the city night stuck to his skin.\n\n\"Hey — tourist? Please. I just need a few euros for the night bus. My card died. I can get home if I make the last one.\"",
+      "ask": "He waits, too close, palms half open.",
       "choices": {
-        "give_money": {
-          "text": "Give him money",
-          "result": "You dig out a note. His smile hardens.\n\nA second shape peels from the alley. Something cold presses under your ribs.\n\nYou never hear the bus arrive."
+        "hear_him_out": {
+          "text": "Hear him out",
+          "next": "story"
         },
-        "help": {
-          "text": "Walk him to the bus stop",
-          "result": "You offer to walk him over. He thanks you, steers you past the fountain — into shadow.\n\nThe knife is already out.\n\nUnity Square keeps its night schedule without you."
-        },
-        "call_police": {
-          "text": "Call the police",
-          "result": "You raise your phone. His face empties.\n\nHe bolts into the alley before the line connects. Sirens somewhere, later.\n\nYou are alone again. Alive. Hands shaking."
+        "ask_where_home": {
+          "text": "Ask where home is",
+          "next": "story"
         },
         "walk_away": {
           "text": "Walk away",
+          "ending": "survive",
           "result": "You shake your head and turn.\n\nHe curses in a language you almost recognize. Footsteps follow for half a block, then stop.\n\nYou do not look back until the hotel lights."
         }
       }
     },
-    "human": {
-      "clues": [
-        "His hands tremble; the exhaustion looks real, not performed.",
-        "A crumpled day-ticket stub sticks from his jacket — today's date, stamped."
-      ],
+    {
+      "id": "story",
+      "intro": "He rubs the tattoo at his throat like it itches when he talks.\n\n\"Shipyard work. Then nothing. Couch at my cousin's in Keratsini — if I make the bus. Miss it and I'm out here till morning with the dogs and the cops.\"\n\nA thin laugh. \"I know how I look. I used to hate guys like me too.\"",
+      "ask": "The last-bus clock in his head is louder than the square.",
+      "choices": {
+        "offer_company": {
+          "text": "Offer to walk with him",
+          "next": "decide"
+        },
+        "ask_about_cousin": {
+          "text": "Ask about his cousin",
+          "next": "decide"
+        },
+        "shut_it_down": {
+          "text": "Shut it down",
+          "ending": "survive",
+          "result": "\"I'm sorry. I can't.\"\n\nHe nods once, jaw tight, and drifts back toward the metro mouth.\n\nYou keep your hands in your pockets the whole way to the hotel."
+        }
+      }
+    },
+    {
+      "id": "decide",
+      "intro": "He stops under the stop's blue light and shows empty pockets like a bad magic trick.\n\n\"Three euros. That's it. Or walk me to the door of the bus so they don't think I'm hustling. I swear I'm not — not tonight.\"",
+      "ask": "The night bus is a rumor of headlights two corners away.",
       "choices": {
         "give_money": {
           "text": "Give him money",
-          "result": "He takes the note with both hands, almost laughing with relief.\n\n\"Thank you. Really. Get home safe.\"\n\nHe jogs toward the stop. For a moment the square feels less sharp."
+          "results": {
+            "threat": {
+              "ending": "dead",
+              "text": "You dig out a note. His smile hardens.\n\nA second shape peels from the alley. Something cold presses under your ribs.\n\nYou never hear the bus arrive."
+            },
+            "human": {
+              "ending": "survive",
+              "text": "He takes the note with both hands, almost laughing with relief.\n\n\"Thank you. Really. Get home safe.\"\n\nHe jogs toward the stop. For a moment the square feels less sharp."
+            }
+          }
         },
-        "help": {
-          "text": "Walk him to the bus stop",
-          "result": "You walk him to the illuminated stop. He talks about missing the last train from Piraeus.\n\nThe night bus sighs open. He waves once from the steps.\n\nYou head back across the square feeling foolish — and safer."
+        "walk_to_bus": {
+          "text": "Walk him to the bus",
+          "results": {
+            "threat": {
+              "ending": "dead",
+              "text": "You offer to walk him over. He thanks you, steers you past the fountain — into shadow.\n\nThe knife is already out.\n\nUnity Square keeps its night schedule without you."
+            },
+            "human": {
+              "ending": "survive",
+              "text": "You walk him to the illuminated stop. He talks about missing the last train from Piraeus, about a cousin who leaves the key under a brick.\n\nThe night bus sighs open. He waves once from the steps.\n\nYou head back across the square feeling foolish — and safer."
+            }
+          }
         },
-        "call_police": {
-          "text": "Call the police",
-          "result": "Blue lights. Questions. His voice cracks while he repeats himself.\n\nThey take him aside. Nobody thanks you.\n\nLater you wonder whether fear chose for you."
-        },
-        "walk_away": {
-          "text": "Walk away",
-          "result": "You mutter an apology and keep moving.\n\nHe stays under the metro sign, smaller somehow.\n\nSleep comes late. The square stays in your ears."
+        "refuse": {
+          "text": "Refuse",
+          "ending": "survive",
+          "result": "You keep your wallet shut.\n\n\"Okay,\" he says, smaller. \"Okay.\"\n\nHe stays under the sign as you leave. Sleep comes late. The square stays in your ears."
         }
       }
     }
-  }
+  ]
 }

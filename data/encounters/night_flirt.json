@@ -1,0 +1,100 @@
+{
+  "id": "night_flirt",
+  "backdrop": "plaza_center_new",
+  "character": "fuckboy",
+  "title": "Unity Square — Night",
+  "variants": {
+    "threat": {
+      "clues": [
+        "When you ask where he lives, he laughs it off — twice — and never answers.",
+        "His phone stays face-down; when it buzzes he angles his body so you cannot see the screen."
+      ]
+    },
+    "human": {
+      "clues": [
+        "His flirt act cracks into a nervous laugh that sounds unrehearsed.",
+        "He flashes a tram ticket and a work badge — today's date, real laminate, his name on both."
+      ]
+    }
+  },
+  "stages": [
+    {
+      "id": "meet",
+      "intro": "Someone in a striped shirt cuts across your path like he meant to.\n\n\"You look lost in a cute way,\" he says, smiling with too much practice. \"Or maybe I just wanted an excuse.\"",
+      "ask": "He waits in your light, thumbs hooked in his pockets.",
+      "choices": {
+        "flirt_back": {
+          "text": "Flirt back",
+          "next": "escalate"
+        },
+        "play_cool": {
+          "text": "Play it cool",
+          "next": "escalate"
+        },
+        "walk_away": {
+          "text": "Walk away",
+          "ending": "survive",
+          "result": "You give him a thin smile and keep walking.\n\n\"Your loss,\" he calls, soft enough to almost sound kind.\n\nThe square swallows him. You do not turn around."
+        }
+      }
+    },
+    {
+      "id": "escalate",
+      "intro": "He matches your pace toward the fountain, close enough that his sleeve brushes yours.\n\n\"I'm not usually this forward,\" he says. \"Tonight feels different. You feel different.\"",
+      "ask": "The water catches neon. He watches your mouth when you talk.",
+      "choices": {
+        "lean_in": {
+          "text": "Lean in",
+          "next": "invite"
+        },
+        "ask_what_he_wants": {
+          "text": "Ask what he wants",
+          "next": "invite"
+        },
+        "bail": {
+          "text": "Bail",
+          "ending": "survive",
+          "result": "You step back into clearer air.\n\n\"Okay. Message received.\" He raises both hands, still smiling.\n\nYou leave before the smile can renegotiate."
+        }
+      }
+    },
+    {
+      "id": "invite",
+      "intro": "He stops under a dead streetlamp and tips his head toward the side streets.\n\n\"My place is close. Or we trade numbers and pretend we'll text. Your call.\"",
+      "ask": "The invitation hangs between you — warm, easy, a little sharp.",
+      "choices": {
+        "go_home": {
+          "text": "Go home with him",
+          "results": {
+            "threat": {
+              "ending": "dead",
+              "text": "You follow him off the square.\n\nThe block turns quiet too fast. His hand finds your wrist — not romantic.\n\nA door that was never his. Voices you did not agree to meet.\n\nUnity Square keeps its lights on without you."
+            },
+            "human": {
+              "ending": "survive",
+              "text": "His apartment is small, messy, real — dishes in the sink, a plant half-dead on the sill.\n\nHe makes tea he forgets to drink. You talk until the sky softens.\n\nIn the morning the square looks ordinary again. That feels like a gift."
+            }
+          }
+        },
+        "number": {
+          "text": "Take his number",
+          "results": {
+            "threat": {
+              "ending": "survive",
+              "text": "You type the digits he dictates. The message you send later fails — number not in service.\n\nAt the hotel desk, a clerk mentions someone matching his description asking for your room.\n\nYou sleep with a chair under the handle."
+            },
+            "human": {
+              "ending": "survive",
+              "text": "He saves your contact as \"Fountain\" and grins at his own joke.\n\nA normal text arrives before midnight: made it home, hope you did too.\n\nYou answer. The night loosens its teeth."
+            }
+          }
+        },
+        "decline": {
+          "text": "Decline",
+          "ending": "survive",
+          "result": "\"Not tonight,\" you say.\n\nHe nods once, almost respectful. \"Worth a try.\"\n\nYou part at the metro mouth. The square feels wider on the walk back."
+        }
+      }
+    }
+  ]
+}
