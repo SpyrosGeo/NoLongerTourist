@@ -1,7 +1,7 @@
 class_name EncounterRunner
 extends Node
 
-signal finished(ending: String)
+signal finished(ending: String, view: String)
 
 const ENERGY_MAX := 100
 const EXAMINE_COST := 50
@@ -21,6 +21,7 @@ var _pending_examine: bool = false
 var _awaiting_choice_ready: bool = false
 var _awaiting_outcome_ready: bool = false
 var _last_ending: String = "survive"
+var _last_view: String = ""
 
 
 func setup(p_ui: EncounterUI) -> void:
@@ -47,6 +48,7 @@ func start(path: String = "res://data/encounters/bus_fare.json") -> void:
 	_awaiting_choice_ready = false
 	_awaiting_outcome_ready = false
 	_last_ending = "survive"
+	_last_view = ""
 	ui.set_energy(_energy, ENERGY_MAX)
 	ui.close_examine(true)
 
@@ -84,6 +86,10 @@ func get_encounter_title() -> String:
 
 func get_last_ending() -> String:
 	return _last_ending
+
+
+func get_last_view() -> String:
+	return _last_view
 
 
 func _load_clues_from_variant() -> void:
@@ -140,7 +146,7 @@ func _on_segments_ready() -> void:
 	if _awaiting_outcome_ready:
 		_awaiting_outcome_ready = false
 		ui.show_outcome_continue(_last_ending)
-		finished.emit(_last_ending)
+		finished.emit(_last_ending, _last_view)
 
 
 func _on_examine() -> void:
@@ -181,11 +187,16 @@ func _on_choice(choice_id: String) -> void:
 		return
 
 	var resolved := _resolve_outcome(entry)
-	_begin_outcome(String(resolved.get("text", "...")), String(resolved.get("ending", "survive")))
+	_begin_outcome(
+		String(resolved.get("text", "...")),
+		String(resolved.get("ending", "survive")),
+		String(resolved.get("view", ""))
+	)
 
 
-func _begin_outcome(text: String, ending: String) -> void:
+func _begin_outcome(text: String, ending: String, view: String = "") -> void:
 	_last_ending = ending if ending == "dead" else "survive"
+	_last_view = view
 	_awaiting_choice_ready = false
 	_awaiting_outcome_ready = true
 	ui.play_segments(text, EncounterUI.Phase.OUTCOME)
@@ -204,9 +215,10 @@ func _resolve_outcome(entry: Dictionary) -> Dictionary:
 			return {
 				"text": String(obj.get("text", "...")),
 				"ending": String(obj.get("ending", "survive")),
+				"view": String(obj.get("view", "")),
 			}
 		if variant_result != null:
-			return {"text": String(variant_result), "ending": "survive"}
+			return {"text": String(variant_result), "ending": "survive", "view": ""}
 
 	if entry.has("result"):
 		var result_val: Variant = entry.get("result")
@@ -215,13 +227,15 @@ func _resolve_outcome(entry: Dictionary) -> Dictionary:
 			return {
 				"text": String(obj2.get("text", "...")),
 				"ending": String(obj2.get("ending", "survive")),
+				"view": String(obj2.get("view", "")),
 			}
 		return {
 			"text": String(result_val),
 			"ending": String(entry.get("ending", "survive")),
+			"view": String(entry.get("view", "")),
 		}
 
-	return {"text": "...", "ending": "survive"}
+	return {"text": "...", "ending": "survive", "view": ""}
 
 
 func _load_json(path: String) -> Dictionary:

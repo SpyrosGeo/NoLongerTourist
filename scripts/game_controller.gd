@@ -20,6 +20,8 @@ func _ready() -> void:
 	runner.name = "EncounterRunner"
 	add_child(runner)
 	runner.setup(ui)
+	if not runner.finished.is_connected(_on_encounter_finished):
+		runner.finished.connect(_on_encounter_finished)
 	if not ui.next_night_pressed.is_connected(_on_next_night):
 		ui.next_night_pressed.connect(_on_next_night)
 	if not ui.restart_run_pressed.is_connected(_on_restart_run):
@@ -38,12 +40,20 @@ func _on_restart_run() -> void:
 	_start_night()
 
 
+func _on_encounter_finished(_ending: String, view: String) -> void:
+	if view.is_empty():
+		return
+	art_rect.texture = SceneArt.texture_for(view)
+	character_rect.visible = false
+
+
 func _start_night() -> void:
 	var path := _pick_encounter_path()
 	_last_path = path
 	runner.start(path)
 	art_rect.texture = SceneArt.texture_for(runner.get_backdrop_id())
 	character_rect.texture = SceneArt.character_texture(runner.get_character_id())
+	character_rect.visible = true
 	ui.set_examine_texture(character_rect.texture)
 	ui.set_title("Night %d — %s" % [_night, runner.get_encounter_title()])
 

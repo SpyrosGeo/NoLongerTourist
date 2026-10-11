@@ -67,8 +67,8 @@
           "text": "Give him money",
           "results": {
             "threat": {
-              "ending": "dead",
-              "text": "You dig out a note. His smile hardens.\n\nA second shape peels from the alley. Something cold presses under your ribs.\n\nYou never hear the bus arrive."
+              "ending": "survive",
+              "text": "You dig out a note. He snatches it, pockets it, and — without breaking eye contact — lets rip a wet, theatrical fart aimed squarely at your shoes.\n\n\"Bus tip,\" he says, and walks off cackling.\n\nYou stand under the blue light smelling like a lost argument."
             },
             "human": {
               "ending": "survive",
@@ -81,7 +81,8 @@
           "results": {
             "threat": {
               "ending": "dead",
-              "text": "You offer to walk him over. He thanks you, steers you past the fountain — into shadow.\n\nThe knife is already out.\n\nUnity Square keeps its night schedule without you."
+              "view": "junkie-bad-ending",
+              "text": "You offer to walk him over. He thanks you, steers you past the fountain — into shadow.\n\nThe knife is already out. Heat, then cold, under your ribs.\n\nSirens somewhere. Then the square goes quiet."
             },
             "human": {
               "ending": "survive",
