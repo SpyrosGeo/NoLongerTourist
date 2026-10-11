@@ -165,6 +165,13 @@ func show_outcome_continue(ending: String) -> void:
 	_style_text_line(restart_button)
 
 
+func set_survive_button_text(text: String) -> void:
+	if not _outcome_survive:
+		return
+	restart_button.text = text
+	_style_text_line(restart_button)
+
+
 func open_examine(revealed_clues: PackedStringArray) -> void:
 	if _examine_tween != null and is_instance_valid(_examine_tween):
 		_examine_tween.kill()

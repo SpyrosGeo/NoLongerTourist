@@ -18,6 +18,7 @@ const ENCOUNTER_SCENE := "res://scenes/main.tscn"
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	Music.play_main_theme()
 	passport_rect.texture = PassportArt.texture()
 	if PassportArt.has_custom_art():
 		passport_fields.visible = false
